@@ -77,7 +77,7 @@ export function DefaultContainer() {
         if (e.key === "ArrowDown") {
           e.preventDefault();
           const next = tree.nextNode;
-          if (e.metaKey) {
+          if (e.metaKey || e.ctrlKey) {
             tree.select(tree.focusedNode);
             tree.activate(tree.focusedNode);
             return;
@@ -133,16 +133,16 @@ export function DefaultContainer() {
           }
           return;
         }
-        if (e.key === "a" && e.metaKey && !tree.props.disableMultiSelection) {
+        if (e.key === "a" && (e.metaKey || e.ctrlKey) && !tree.props.disableMultiSelection) {
           e.preventDefault();
           tree.selectAll();
           return;
         }
-        if (e.key === "a" && !e.metaKey && tree.props.onCreate) {
+        if (e.key === "a" && !(e.metaKey || e.ctrlKey) && tree.props.onCreate) {
           tree.createLeaf();
           return;
         }
-        if (e.key === "A" && !e.metaKey) {
+        if (e.key === "A" && !(e.metaKey || e.ctrlKey)) {
           if (!tree.props.onCreate) return;
           tree.createInternal();
           return;
